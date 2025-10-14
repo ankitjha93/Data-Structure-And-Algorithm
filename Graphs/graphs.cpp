@@ -9,7 +9,51 @@
 7. In directed Graph - Indegree(node) and OutDegree(node) means no. of nodes toward that node and away from that node.
 8. Edge Weight -- weight associated to that particular edge...
 
-
-
-
 */
+
+// Adjacency Matrix
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){ 
+   int n, m;
+   cin>>n>>m;
+// graph here
+   int adj[n+1][m+1];
+
+   for(int i = 0; i < m; i++){
+    int u, v;
+    cin>>u>>v;
+    adj[u][v] = 1;
+    adj[v][u] = 1;
+   }
+   return 0;
+}
+
+// Adjacency List
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> adj[n+1];
+    for(int i = 0; i < m; i++){
+        int u, v;
+        // for undirected graph , O(2E)
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+
+        // for directed graph , O(E)
+
+         adj[u].push_back(v);
+    }
+    return 0;
+}
+
+// TC - O(M)
+// SC - O(N^2)
+
+
+
+
+

@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+
+    private :
+       void dfs(int row, int col, vector<vector<int>> &ans, vector<vector<int>> & image, int newColor, int delRow[], int delCol[], int iniColor){
+                ans[row][col] = newColor;
+                int n = image.size();  
+                int m = image[0].size();
+                
+                for(int i = 0; i < 4; i++){
+                     int nrow = row + delRow[i];
+                     int ncol = col + delCol[i];
+
+                     if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == iniColor && ans[nrow][ncol] != newColor){
+                        dfs(nrow, ncol, ans, image, newColor, delRow, delCol,iniColor);
+                     }
+                }
+            }
+  public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc,
+                                  int newColor) {
+        // Code here
+        int iniColor = image[sr][sc];
+        vector<vector<int>> ans = image;
+        int delRow[] = {-1,0, + 1, 0};
+        int delCol[] = {0, + 1, 0, -1};
+        dfs(sr, sc, ans, image,newColor, delRow, delCol, iniColor);
+        return ans;
+        
+    }
+};
+
+int main() {
+     vector<vector<int>> grid = {
+        {1, 1, 1},
+        {1, 1, 0},
+        {0, 1, 1}
+    };
+
+    Solution obj;
+    int sr = 1, sc = 1, newColor = 2; // start at (1,1), recolor to 2
+    vector<vector<int>> res = obj.floodFill(grid, sr, sc, newColor);
+
+    cout << "Flood Fill Result:\n";
+    for (auto row : res) {
+        for (auto val : row) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+
+// TC - O(n*m) + O(n*m*4) -- which is equal to O(n*m)
+// SC - O(n*m)
