@@ -98,7 +98,7 @@ int getLengthOfLCS(string & str1, string & str2) {
 
   for(int i = 1; i <= n; i++){
      for(int j = 1; j <= m; j++){
-         if(str1[i-1] == str2[j-1]) dp[i][j] == 1 + dp[i-1][j-1];
+         if(str1[i-1] == str2[j-1]) dp[i][j] = 1 + dp[i-1][j-1];
 
          else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
      }
@@ -147,29 +147,3 @@ int getLengthOfLCS(string & str1, string & str2) {
 // SC - O(sum)
 
 
-// 2d array ------- to ------- 1d array
-
-
-int cutRod(vector<int> &price, int n)
-{
-	// Write your code here.
-    
-    vector<int> prev(n+1, 0), cur(n+1,0);
-    
-    for(int N = 0; N <= n; N++){
-         prev[N] = N * price[0];
-    }
-
-    for(int ind = 1; ind <= n; ind++){
-         for(int N = 0; N <= n; N++){
-                int notTake = 0 + prev[N];
-     int take = INT_MIN;
-     int rodLength = ind + 1;
-     if(rodLength <= N){
-         take = price[ind] + prev[N- rodLength];
-     }
-    prev[N] =  max(take, notTake);
-         }
-    }
-    return prev[n];
-}
