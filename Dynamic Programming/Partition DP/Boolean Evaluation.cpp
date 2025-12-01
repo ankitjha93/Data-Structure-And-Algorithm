@@ -28,7 +28,7 @@ long long f(int i, int j, int isTrue, string &exp){
              
          }else if(exp[ind] == '|'){
              if(isTrue){
-                 ways = (ways + (lT * rT) % mod + (lT * rF) % mod + (lF * rF) % mod) % mod;
+                 ways = (ways + (lT * rT) % mod + (lT * rF) % mod + (lF * rT) % mod) % mod;
              }else{
                  ways = (ways + (rF * lF) % mod) % mod;
              }
@@ -46,8 +46,7 @@ long long f(int i, int j, int isTrue, string &exp){
 
 int evaluateExp(string & exp) {
     // Write your code here.
-    return f(0, exp.size() -1, 1, exp);
-    
+    return f(0, exp.size() -1, 1, exp);  
 }
 
 int main(){
@@ -117,39 +116,3 @@ int evaluateExp(string & exp) {
 // SC - O(n^2) + O(n)
 
 
-// Tabulation
-
-
-int maxCoins(vector<int>& a)
-{
-	// Write your code here.
-    int n = a.size();
-    a.push_back(1);
-    a.insert(a.begin(), 1);
-    
-    vector<vector<int>> dp(n+2, vector<int>(n+2, 0));
-
-    for(int i = n; i >= 1; i--){
-         for(int j = 1; j <= n; j++){
-
-            if(i > j) continue;
-
-                    int maxi = INT_MIN;
-     
-   
-                    
-
-     for(int ind = i; ind <= j; ind++){
-          int cost = a[i-1] * a[ind] * a[j+1] + dp[i][ind-1] + dp[ind + 1][j];
-
-          maxi = max(maxi, cost);
-     }
-
-              dp[i][j] = maxi;
-         }
-    }
-    return dp[1][n];
-}
-
-// TC - O(n*n) * n ~ O(n^3)
-// SC - O(n^2)
